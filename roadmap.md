@@ -28,5 +28,6 @@ Yayınlama istendi. QR kodu yayın için belirlenen misafir menüsü adresini ku
 - [x] Vercel ve Netlify hedefleri, IP başlığı sırası ve ortam değişkeni rehberi
 - [ ] Vercel ve Netlify üzerinde canlı doğrulama (harici yayın ve sunucu anahtarları gerekir)
 # Yeni menü
+- [ ] İlk 10 ürünün fotoğrafını araştırılmış gerçek fotoğraflarla değiştir ve menüde kontrol et
 - [x] Yüklenen menü fotoğrafındaki tüm ürünleri ekle, eski ürünleri sil, her ürüne fotoğraf ekle
 - [x] Yorum penceresinde sosyal medya + takipçi (panelden düzenlenebilir)
