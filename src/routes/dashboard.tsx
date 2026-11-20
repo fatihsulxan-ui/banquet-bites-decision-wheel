@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
-import { Coffee, LayoutGrid, UtensilsCrossed, QrCode, Plus, Pencil, Trash2, Download, Copy, Search, Eye, EyeOff, Check, ImageOff, MessageSquareText, MailOpen, Mail, FerrisWheel } from "lucide-react";
+import { Coffee, LayoutGrid, UtensilsCrossed, QrCode, Plus, Pencil, Trash2, Download, Copy, Search, Eye, EyeOff, Check, ImageOff, MessageSquareText, MailOpen, Mail, FerrisWheel, Share2 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import { itemSchema } from "@/lib/menu-schema";
 import { menuImage } from "@/lib/menu-images";
 import { PhotoUploader } from "@/components/menu/PhotoUploader";
 import { WheelPanel } from "@/components/menu/WheelPanel";
+import { SocialPanel } from "@/components/menu/SocialPanel";
 import { publishedMenuUrl, resolvedGuestMenuUrl } from "@/lib/menu-url";
 
 export const Route = createFileRoute("/dashboard")({
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/dashboard")({
 
 type Item = Tables<"menu_items">;
 type Category = Tables<"menu_categories">;
-type Tab = "items" | "categories" | "comments" | "wheel" | "qr";
+type Tab = "items" | "categories" | "comments" | "wheel" | "social" | "qr";
 const field = "w-full rounded-xl border border-border bg-input px-3.5 py-3 text-base outline-none transition focus:border-primary focus:ring-1 focus:ring-ring sm:text-sm";
 
 function Field({ label, hint, children }: { label: string; hint?: string; children: ReactNode }) {
@@ -121,6 +122,7 @@ function Dashboard() {
     { id: "categories", label: "Categories", icon: LayoutGrid, count: data.categories.length },
     { id: "comments", label: "Comments", icon: MessageSquareText, count: comments.data?.filter((c) => !c.is_read).length || undefined },
     { id: "wheel", label: "Wheel", icon: FerrisWheel },
+    { id: "social", label: "Social", icon: Share2 },
     { id: "qr", label: "QR code", icon: QrCode },
   ];
   const newItem = () => setEditing({ available: true, image: "", category_id: filter || data.categories[0]?.id || "", position: data.items.length + 1 });
@@ -221,6 +223,7 @@ function Dashboard() {
       </>}
 
       {tab === "wheel" && <WheelPanel />}
+      {tab === "social" && <SocialPanel />}
 
       {tab === "qr" && <>
         <h1 className="text-2xl font-semibold">QR code</h1>

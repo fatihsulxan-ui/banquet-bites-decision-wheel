@@ -1,12 +1,8 @@
-// Café social accounts shown in the guest menu's comment sheet.
-// Follower counts are entered by hand: the platforms don't share live counts without business API access.
-export type SocialAccount = { id: "tiktok" | "instagram" | "facebook"; label: string; url: string; followers: number };
-
-export const socialAccounts: SocialAccount[] = [
-  { id: "tiktok", label: "TikTok", url: "https://www.tiktok.com/@ummasbuncoffee", followers: 0 },
-  { id: "instagram", label: "Instagram", url: "https://www.instagram.com/ummasbuncoffee", followers: 0 },
-  { id: "facebook", label: "Facebook", url: "https://www.facebook.com/ummasbuncoffee", followers: 0 },
-];
+// Café social accounts shown in the guest menu's comment sheet. Links and follower
+// counts are typed by the owner in the dashboard; platforms don't share live counts.
+export type SocialId = "tiktok" | "instagram" | "facebook";
+export type SocialAccount = { id: SocialId; url: string; followers: number | null; position: number };
+export const socialLabels: Record<SocialId, string> = { tiktok: "TikTok", instagram: "Instagram", facebook: "Facebook" };
 
 export function formatFollowers(n: number) {
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;

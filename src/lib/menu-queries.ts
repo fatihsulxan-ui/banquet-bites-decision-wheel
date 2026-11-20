@@ -5,3 +5,5 @@ export const dashboardQuery = queryOptions({ queryKey: ["dashboard"], queryFn: (
 export const commentsQuery = queryOptions({ queryKey: ["comments"], queryFn: () => getComments() });
 import { getWheelAdmin } from "./wheel.functions";
 export const wheelQuery = queryOptions({ queryKey: ["wheel"], queryFn: () => getWheelAdmin() });
+import { getSocial } from "./social.functions";
+export const socialQuery = queryOptions({ queryKey: ["social"], queryFn: () => getSocial() });

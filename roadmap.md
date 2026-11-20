@@ -29,3 +29,4 @@ Yayınlama istendi. QR kodu yayın için belirlenen misafir menüsü adresini ku
 - [ ] Vercel ve Netlify üzerinde canlı doğrulama (harici yayın ve sunucu anahtarları gerekir)
 # Yeni menü
 - [x] Yüklenen menü fotoğrafındaki tüm ürünleri ekle, eski ürünleri sil, her ürüne fotoğraf ekle
+- [x] Yorum penceresinde sosyal medya + takipçi (panelden düzenlenebilir)

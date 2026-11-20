@@ -2,7 +2,9 @@ import { useState, type FormEvent } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { CheckCircle2, Facebook, Instagram, MessageSquareText, Send, X } from "lucide-react";
-import { formatFollowers, socialAccounts } from "@/lib/social";
+import { useQuery } from "@tanstack/react-query";
+import { formatFollowers, socialLabels } from "@/lib/social";
+import { socialQuery } from "@/lib/menu-queries";
 import { toast } from "sonner";
 import { sendComment } from "@/lib/menu.functions";
 import { commentSchema } from "@/lib/menu-schema";
@@ -16,6 +18,8 @@ export function CommentBox() {
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
+  const social = useQuery({ ...socialQuery, enabled: open });
+  const accounts = (social.data ?? []).filter((a) => a.url);
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -52,18 +56,18 @@ export function CommentBox() {
               <Send className="size-4" />{busy ? "Sending..." : "Send"}
             </Button>
           </form>}
-          <div className="mt-5 border-t border-border pt-4">
+          {accounts.length > 0 && <div className="mt-5 border-t border-border pt-4">
             <p className="text-sm font-semibold">Follow us</p>
             <div className="mt-3 grid grid-cols-3 gap-2">
-              {socialAccounts.map((a) => <a key={a.id} href={a.url} target="_blank" rel="noopener noreferrer"
+              {accounts.map((a) => <a key={a.id} href={a.url} target="_blank" rel="noopener noreferrer"
                 className="flex flex-col items-center gap-1 rounded-2xl bg-secondary px-2 py-3 text-secondary-foreground transition-colors hover:bg-accent">
                 {a.id === "instagram" ? <Instagram className="size-6" /> : a.id === "facebook" ? <Facebook className="size-6" /> : <TikTokIcon />}
-                <span className="text-xs font-medium">{a.label}</span>
-                <span className="text-sm font-bold">{formatFollowers(a.followers)}</span>
-                <span className="text-[10px] text-muted-foreground">followers</span>
+                <span className="text-xs font-medium">{socialLabels[a.id]}</span>
+                {a.followers != null && <><span className="text-sm font-bold">{formatFollowers(a.followers)}</span>
+                <span className="text-[10px] text-muted-foreground">followers</span></>}
               </a>)}
             </div>
-          </div>
+          </div>}
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>

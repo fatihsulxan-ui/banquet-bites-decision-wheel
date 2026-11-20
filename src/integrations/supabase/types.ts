@@ -156,6 +156,27 @@ export type Database = {
           },
         ]
       }
+      social_accounts: {
+        Row: {
+          followers: number | null
+          id: string
+          position: number
+          url: string
+        }
+        Insert: {
+          followers?: number | null
+          id: string
+          position?: number
+          url?: string
+        }
+        Update: {
+          followers?: number | null
+          id?: string
+          position?: number
+          url?: string
+        }
+        Relationships: []
+      }
       wheel_claims: {
         Row: {
           code: string

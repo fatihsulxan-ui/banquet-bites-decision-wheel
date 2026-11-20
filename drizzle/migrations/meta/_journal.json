@@ -22,6 +22,13 @@
       "when": 1795150733495,
       "tag": "0002_import_menu_data",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1795151037383,
+      "tag": "0003_social_accounts",
+      "breakpoints": true
     }
   ]
 }
