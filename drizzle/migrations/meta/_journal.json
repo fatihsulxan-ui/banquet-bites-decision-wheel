@@ -15,6 +15,13 @@
       "when": 1795149052701,
       "tag": "0001_import_menu_data",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795150733495,
+      "tag": "0002_import_menu_data",
+      "breakpoints": true
     }
   ]
 }
