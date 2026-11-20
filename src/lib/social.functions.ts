@@ -14,12 +14,11 @@ export const getSocial = createServerFn({ method: "GET" }).handler(async (): Pro
 const socialInput = z.object({ accounts: z.array(z.object({
   id: z.enum(["tiktok", "instagram", "facebook"]),
   url: z.string().trim().max(300).refine((u) => u === "" || /^https:\/\//.test(u), "Links must start with https://"),
-  followers: z.number().int().min(0).max(1_000_000_000).nullable(),
 })).max(3) });
 
 export const saveSocial = createServerFn({ method: "POST" }).middleware([managementDb]).inputValidator((i) => socialInput.parse(i)).handler(async ({ data, context }) => {
   for (const a of data.accounts) {
-    const r = await context.db.from("social_accounts").update({ url: a.url, followers: a.followers }).eq("id", a.id);
+    const r = await context.db.from("social_accounts").update({ url: a.url }).eq("id", a.id);
     if (r.error) throw new Error("Social accounts could not be saved.");
   }
   return { ok: true };

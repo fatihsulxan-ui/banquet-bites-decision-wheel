@@ -22,7 +22,7 @@ export function SocialPanel() {
   async function submit() {
     setBusy(true);
     try {
-      await save({ data: { accounts: rows.map(({ id, url, followers }) => ({ id, url: url.trim(), followers })) } });
+      await save({ data: { accounts: rows.map(({ id, url }) => ({ id, url: url.trim() })) } });
       await client.invalidateQueries({ queryKey: ["social"] });
       toast.success("Social accounts saved.");
     } catch (e) { toast.error(e instanceof Error && e.message.includes("https") ? "Links must start with https://" : "Could not save. Please try again."); }
@@ -31,14 +31,12 @@ export function SocialPanel() {
 
   return <>
     <h1 className="text-2xl font-semibold">Social media</h1>
-    <p className="mt-1 text-sm text-muted-foreground">Guests see these in the comment window. Leave a link empty to hide that account, or the follower count empty to hide the number.</p>
+    <p className="mt-1 text-sm text-muted-foreground">Guests see these in the comment window. Leave a link empty to hide that account.</p>
     <div className="mt-5 space-y-3">
       {rows.map((a) => <div key={a.id} className="rounded-2xl border border-border bg-card p-4">
         <p className="font-semibold">{socialLabels[a.id]}</p>
-        <div className="mt-3 grid gap-3 sm:grid-cols-[1fr_180px]">
+        <div className="mt-3 grid gap-3">
           <input aria-label={`${socialLabels[a.id]} link`} className={field} placeholder="https://..." value={a.url} onChange={(e) => set(a.id, { url: e.target.value })} />
-          <input aria-label={`${socialLabels[a.id]} followers`} className={field} inputMode="numeric" placeholder="Followers" value={a.followers ?? ""}
-            onChange={(e) => { const v = e.target.value.replace(/\D/g, ""); set(a.id, { followers: v === "" ? null : Number(v) }); }} />
         </div>
       </div>)}
     </div>
